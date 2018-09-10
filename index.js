@@ -91,11 +91,3 @@ function standalone(config, callback) {
 module.exports = config => new GithubAssign(config);
 
 module.exports.standalone = standalone;
-
-standalone({
-  port: 3000,
-  reviewers: [],
-  webhookUrl: '/webhook/github',
-  githubToken: '00e17bf55663db6496617c0bcbb39ed10dc6bb64',
-  slackToken: 'xoxb-213055366178-433688484951-Rxmc5UQ0AoLHGaC8J2VcBGfV',
-});
