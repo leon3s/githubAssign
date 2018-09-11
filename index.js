@@ -35,7 +35,7 @@ class GithubAssign {
       await repo.assignUserForReview(options.number, {
         reviewers: githubAccounts,
       });
-      const hastags = `@${githubAccounts.join('@ ')}`;
+      const hastags = `@${githubAccounts.join(' @')}`;
       await repo.createCommentIssue(options.number, {
         body: `${hastags} review are required to merge this pull request`,
       });
