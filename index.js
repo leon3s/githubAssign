@@ -1,8 +1,6 @@
 'use strict';
 
 const express = require('express');
-const SlackBot = require('slackbots');
-
 const GithubApi = require('@leone/githubapi');
 
 class GithubAssign {
@@ -10,10 +8,6 @@ class GithubAssign {
     this.githubApi = new GithubApi(
       config.githubToken
     );
-    this.slackBot = new SlackBot({
-      name: config.name,
-      token: config.slackToken,
-    });
     this.reviewers = config.reviewers;
     const router = express.Router();
     router.use(express.json());
@@ -38,13 +32,6 @@ class GithubAssign {
       const hastags = `@${githubAccounts.join(' @')}`;
       await repo.createCommentIssue(options.number, {
         body: `${hastags} review are required to merge this pull request`,
-      });
-
-      reviewers.forEach((reviewer) => {
-        const { slackAccount } = reviewer;
-        this.slackBot.postMessageToUser(reviewer.slackAccount,
-          `Hi ${slackAccount} this pull request require your review\n${options.url}`
-        );
       });
       return { done: true };
     } catch (e) { throw e; };
